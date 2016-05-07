@@ -1,5 +1,5 @@
 import {HM} from './hm.model';
- 
+
 export class Today {
     arrive: HM;
     lunch: HM;
@@ -8,9 +8,9 @@ export class Today {
     hoursLessLunch: HM;
 
     constructor(arrive?: HM, lunch?: HM, leave?: HM) {
-        if (arrive == null) arrive = new HM(0);
-        if (lunch == null) arrive = new HM(0);
-        if (leave == null) leave = new HM(arrive.decimal);
+        if (arrive === undefined) arrive = new HM(0);
+        if (lunch === undefined) arrive = new HM(0);
+        if (leave === undefined) leave = new HM(arrive.decimal);
 
         this.arrive = arrive;
         this.lunch = lunch;

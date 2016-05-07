@@ -5,9 +5,9 @@ import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 
-import {EodComponent} from "./eod.component";
-import {NowComponent} from "./now.component";
-import {SettingsComponent} from "./settings.component";
+import {EodComponent} from './eod.component';
+import {NowComponent} from './now.component';
+import {SettingsComponent} from './settings.component';
 
 import { AppState } from './app.service';
 import { Context } from './context.model';
@@ -27,26 +27,26 @@ import { Context } from './context.model';
     directives: [ROUTER_DIRECTIVES],
 })
 @Routes([
-    {path:'/now',      component: NowComponent},
-    {path:'/eod',      component: EodComponent},
-    {path:'/settings', component: SettingsComponent},
-    {path:'*',         component: NowComponent}
+    {path: '/now',      component: NowComponent},
+    {path: '/eod',      component: EodComponent},
+    {path: '/settings', component: SettingsComponent},
+    {path: '*',         component: NowComponent}
 ])
 
 export class App implements OnInit {
     context: Observable<Context>;
-    
-    constructor(private _contextService: AppState) { 
-        console.log("App contructor");
-        this.context = this._contextService.context$;
-        this._contextService.loadContext();
+
+    constructor(private _appState: AppState) { 
+        console.log('App contructor');
+        this._appState.loadContext();
     }
 
     ngOnInit() {
-        console.log("App ngOnInit");
+        console.log('App ngOnInit');
+        this.context = this._appState.context$;
         Observable.interval(1000).subscribe(() => {
-            console.log("One second heartbeat.");
-            this._contextService.updateNow();
+            console.log('One second heartbeat.');
+            this._appState.updateNow();
         });
     }
 }

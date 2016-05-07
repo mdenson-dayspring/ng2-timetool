@@ -17,7 +17,6 @@ export class DayInfo {
         this.actual = actual;
     }
     public show(): boolean {
-        //console.log({'this': this, 'show': (this.goal!==undefined) || (this.actual!==undefined)});
         return (this.goal!==undefined) || (this.actual!==undefined);
     };
     public diffHM(): string {
@@ -28,14 +27,14 @@ export class DayInfo {
         }
     };
     public toString(estimate = false): string {
-        var name = (this.name + "         ").substr(0, 9);
-        var actual = ("     " + this.goal.toString()).substr(-5);
-        var diff = " _____";
+        let name = (this.name + '         ').substr(0, 9);
+        let actual = ('     ' + this.goal.toString()).substr(-5);
+        let diff = ' _____';
         if(!estimate) {
-            actual = ("     " + this.actual.toString()).substr(-5);
-            diff = ("      " + this.diffHM()).substr(-6);
+            actual = ('     ' + this.actual.toString()).substr(-5);
+            diff = ('      ' + this.diffHM()).substr(-6);
         }
-        return name + " " + actual + " " + diff;
+        return name + ' ' + actual + ' ' + diff;
     };
 }
 

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
-import {AppState} from "./app.service";
-import {TimelineComponent} from "./timeline.component";
+import {AppState} from './app.service';
+import {TimelineComponent} from './timeline.component';
 
 @Component({
     template: `
