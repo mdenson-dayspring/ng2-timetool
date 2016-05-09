@@ -2,32 +2,30 @@ import {Injectable} from '@angular/core';
 
 import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
-import {Observer} from 'rxjs/Observer';
+import 'rxjs/add/observable/interval';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/share';
 
-import {Context} from './context.model';
-import {HM} from './hm.model';
-import {Today} from './today.model';
+import { Context, HM, Today } from './models';
 
 @Injectable()
 export class AppState {
     context$: Observable<Context>;
-    private _contextObserver: Observer<Context>;
     private _dataStore: {
         context: Context
     };
 
     constructor() {
-        console.log('AppState constructor');
         this._dataStore = { context: new Context() };
+    }
 
-        // Create Observable Stream to output our data
-        this.context$ = new Observable<Context>(observer => this._contextObserver = observer)
-            .share();
+    getContext(): Context {
+        return this._dataStore.context;
     }
 
     loadContext() {
-        console.log('AppState loadContext');
         let localStorage = window.localStorage;
         let context = this._dataStore.context;
 
@@ -65,27 +63,35 @@ export class AppState {
             this.save(context);
 
         }
-        this.updateNow();
+
+        // Create Observable Stream to output our data
+        this.context$ = Observable
+            .interval(1000)
+            .map(() => {
+                return HM.Now();
+            })
+            .filter((value) => {
+                let context: Context = this._dataStore.context;
+                return (!context.now || context.now.leave.decimal !== value.decimal);
+            })
+            .do((v: HM) => this.updateNow(v))
+            .map(() => {
+                return this._dataStore.context;
+            })
+            .share();
     }
 
-    public updateNow() {
-        console.log('AppState updateNow');
-        var context: Context = this._dataStore.context;
-        var nowHM = HM.Now();
-        if (!context.now || context.now.leave.decimal != nowHM.decimal) {
-            context.today = new Today(
-                new HM(context.arriveStr),
-                new HM(context.lunchStr),
-                new HM(context.leaveStr));
-            context.now = new Today(
-                new HM(context.arriveStr),
-                new HM(context.lunchStr),
-                nowHM);
-            if (this._contextObserver) {
-                console.log('AppState call next');
-                this._contextObserver.next(context);
-            }
-        }
+    public updateNow(nowHM) {
+        console.log('updateNow() ', nowHM.toString());
+        let context: Context = this._dataStore.context;
+        context.today = new Today(
+            new HM(context.arriveStr),
+            new HM(context.lunchStr),
+            new HM(context.leaveStr));
+        context.now = new Today(
+            new HM(context.arriveStr),
+            new HM(context.lunchStr),
+            nowHM);
     }
 
     public save(context: Context) {

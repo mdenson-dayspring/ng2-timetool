@@ -1,11 +1,20 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
+import { Context } from './models';
 import { AppState } from './app.service';
 
 @Component({
     templateUrl: './app/timeline.component.html',
     selector: 'timeline'
 })
-export class TimelineComponent {
-    constructor(private _context: AppState) { }
+export class TimelineComponent implements OnInit {
+    context: Context;
+    constructor(private _appState: AppState) { }
+    
+    ngOnInit() {
+        this.context = this._appState.getContext();
+        this._appState.context$.subscribe(updated => {
+            this.context = updated;
+        });
+    }
 }

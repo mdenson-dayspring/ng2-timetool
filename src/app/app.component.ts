@@ -1,52 +1,48 @@
 import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES, Routes } from '@angular/router';
+import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 import { OnInit } from '@angular/core';
 import 'rxjs/Rx';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/interval';
 
 import {EodComponent} from './eod.component';
 import {NowComponent} from './now.component';
 import {SettingsComponent} from './settings.component';
 
 import { AppState } from './app.service';
-import { Context } from './context.model';
+import { Context, HM } from './models';
 
 @Component({
     selector: 'app',
     template: `
-        <h1>Today's Progress - {{ context.now.leave.toString() }}</h1>
+        <h1>Today's Progress -  {{ time }}</h1>
         <nav>
-          <a [routerLink]="['/now']">Now</a>
-          <a [routerLink]="['/eod']">End of Day</a>
-          <a [routerLink]="['/settings']">Settings</a>
+          <a [routerLink]="['Now']">Now</a>
+          <a [routerLink]="['Eod']">End</a>
+          <a [routerLink]="['Settings']">Setting</a>
         </nav>
         <router-outlet></router-outlet>
     `,
     styleUrls: ['app/app.component.css'],
     directives: [ROUTER_DIRECTIVES],
+    providers: [
+        ROUTER_PROVIDERS
+    ]
 })
-@Routes([
-    {path: '/now',      component: NowComponent},
-    {path: '/eod',      component: EodComponent},
-    {path: '/settings', component: SettingsComponent},
-    {path: '*',         component: NowComponent}
+@RouteConfig([
+    { path: '/now', name: 'Now', component: NowComponent },
+    { path: '/eod', name: 'Eod', component: EodComponent },
+    { path: '/settings', name: 'Settings', component: SettingsComponent },
+    { path: '/', component: NowComponent }
 ])
 
 export class App implements OnInit {
-    context: Observable<Context>;
+    time: string;
 
-    constructor(private _appState: AppState) { 
-        console.log('App contructor');
-        this._appState.loadContext();
-    }
+    constructor(private _appState: AppState) { }
 
     ngOnInit() {
-        console.log('App ngOnInit');
-        this.context = this._appState.context$;
-        Observable.interval(1000).subscribe(() => {
-            console.log('One second heartbeat.');
-            this._appState.updateNow();
+        this._appState.loadContext();
+        this._appState.context$.subscribe(updated => {
+            this.time = updated.now.leave.toString();
         });
     }
 }

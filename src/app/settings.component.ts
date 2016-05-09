@@ -3,9 +3,11 @@ import { Component } from '@angular/core';
 import { AppState } from './app.service';
 
 @Component({
-    templateUrl: './app/settings.component.html',
+    template: `
+        <p>Settings Page</p>
+    `,
     selector: 'settings'
 })
 export class SettingsComponent {
-    constructor(private _context: AppState) { }
+    constructor(private _appState: AppState) { }
 }

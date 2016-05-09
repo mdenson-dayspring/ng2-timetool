@@ -1,4 +1,4 @@
-import {HM} from './hm.model';
+import {HM} from './hourminute.model';
 import {Today} from './today.model';
 
 export class Context {

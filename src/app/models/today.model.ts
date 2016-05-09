@@ -1,4 +1,4 @@
-import {HM} from './hm.model';
+import { HM } from './hourminute.model';
 
 export class Today {
     arrive: HM;

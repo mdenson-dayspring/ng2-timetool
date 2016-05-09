@@ -1,8 +1,8 @@
 /**
  * Created by mdenson on 12/11/2015.
  */
-import {HM} from './hm.model';
-import {Today} from './today.model';
+import { HM } from './hourminute.model';
+import { Today } from './today.model';
 
 export class DayInfo {
     name: string;
