@@ -11,7 +11,7 @@ import { TimelineComponent } from './timeline.component';
         <p>Hours worked so far: {{ hours }} 
         less lunch: {{ hoursLessLunch }}</p>
     `,
-    selector: 'now-summary'
+    selector: 'now-summary',
     directives: [TimelineComponent]
 })
 export class NowComponent implements OnInit {
