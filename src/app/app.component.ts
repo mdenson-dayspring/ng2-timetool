@@ -21,7 +21,7 @@ import { Context, HM } from './models';
         </nav>
         <router-outlet></router-outlet>
     `,
-    styleUrls: ['app/app.component.css'],
+    styles: [require('app/app.component.css')],
     directives: [ROUTER_DIRECTIVES],
     providers: [
         ROUTER_PROVIDERS

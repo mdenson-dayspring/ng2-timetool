@@ -2,7 +2,7 @@
  * Providers provided by Angular
  */
 import {bootstrap} from '@angular/platform-browser-dynamic';
-import {ROUTER_PROVIDERS} from '@angular/router';
+import {ROUTER_PROVIDERS} from '@angular/router-deprecated';
 import { provide }              from '@angular/core';
 import { LocationStrategy,
          HashLocationStrategy } from '@angular/common';
@@ -28,7 +28,7 @@ export function main(initialHmrState?: any): Promise<any> {
   return bootstrap(App, [
     ...PROVIDERS,
     ...ROUTER_PROVIDERS,
-  provide(LocationStrategy,
+    provide(LocationStrategy,
          {useClass: HashLocationStrategy}),
     ...ENV_PROVIDERS,
     ...DIRECTIVES,

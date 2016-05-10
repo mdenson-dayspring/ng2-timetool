@@ -4,7 +4,7 @@ import { Context } from './models';
 import { AppState } from './app.service';
 
 @Component({
-    templateUrl: './app/timeline.component.html',
+    template: require('./timeline.component.html'),
     selector: 'timeline'
 })
 export class TimelineComponent implements OnInit {
