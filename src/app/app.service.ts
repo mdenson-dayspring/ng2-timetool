@@ -96,7 +96,7 @@ export class AppState {
 
     public save(context: Context) {
         let localStorage = window.localStorage;
-        localStorage.setItem('dataVersion', 2);
+        localStorage.setItem('dataVersion', '2');
 
         localStorage.setItem('staff', context.staff);
         localStorage.setItem('arriveStr', context.arriveStr);
