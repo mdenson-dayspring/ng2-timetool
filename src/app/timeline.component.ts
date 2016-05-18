@@ -10,7 +10,7 @@ import { AppState } from './app.service';
 export class TimelineComponent implements OnInit {
     context: Context;
     constructor(private _appState: AppState) { }
-    
+
     ngOnInit() {
         this.context = this._appState.getContext();
         this._appState.context$.subscribe(updated => {

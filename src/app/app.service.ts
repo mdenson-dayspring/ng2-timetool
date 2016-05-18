@@ -29,22 +29,22 @@ export class AppState {
         let localStorage = window.localStorage;
         let context = this._dataStore.context;
 
-        let dataVersion: string = localStorage['dataVersion'];
+        let dataVersion: string = localStorage.getItem('dataVersion');
 
         if (dataVersion) {
 
-            context.staff = localStorage['staff'];
-            context.arriveStr = localStorage['arriveStr'];
-            context.lunchStr = localStorage['lunchStr'];
-            context.leaveStr = localStorage['leaveStr'];
+            context.staff = localStorage.getItem('staff');
+            context.arriveStr = localStorage.getItem('arriveStr');
+            context.lunchStr = localStorage.getItem('lunchStr');
+            context.leaveStr = localStorage.getItem('leaveStr');
 
-            context.gSun = localStorage['gSun'];
-            context.gMon = localStorage['gMon'];
-            context.gTue = localStorage['gTue'];
-            context.gWed = localStorage['gWed'];
-            context.gThu = localStorage['gThu'];
-            context.gFri = localStorage['gFri'];
-            context.gSat = localStorage['gSat'];
+            context.gSun = localStorage.getItem('gSun');
+            context.gMon = localStorage.getItem('gMon');
+            context.gTue = localStorage.getItem('gTue');
+            context.gWed = localStorage.getItem('gWed');
+            context.gThu = localStorage.getItem('gThu');
+            context.gFri = localStorage.getItem('gFri');
+            context.gSat = localStorage.getItem('gSat');
 
         } else { // defaults
 
@@ -71,8 +71,8 @@ export class AppState {
                 return HM.Now();
             })
             .filter((value) => {
-                let context: Context = this._dataStore.context;
-                return (!context.now || context.now.leave.decimal !== value.decimal);
+                let c: Context = this._dataStore.context;
+                return (!c.now || c.now.leave.decimal !== value.decimal);
             })
             .do((v: HM) => this.updateNow(v))
             .map(() => {
@@ -95,19 +95,19 @@ export class AppState {
     }
 
     public save(context: Context) {
-        var localStorage = window.localStorage;
-        localStorage['dataVersion'] = 2;
+        let localStorage = window.localStorage;
+        localStorage.setItem('dataVersion', 2);
 
-        localStorage['staff'] = context.staff;
-        localStorage['arriveStr'] = context.arriveStr;
-        localStorage['lunchStr'] = context.lunchStr;
-        localStorage['leaveStr'] = context.leaveStr;
-        localStorage['gSun'] = context.gSun;
-        localStorage['gMon'] = context.gMon;
-        localStorage['gTue'] = context.gTue;
-        localStorage['gWed'] = context.gWed;
-        localStorage['gThu'] = context.gThu;
-        localStorage['gFri'] = context.gFri;
-        localStorage['gSat'] = context.gSat;
+        localStorage.setItem('staff', context.staff);
+        localStorage.setItem('arriveStr', context.arriveStr);
+        localStorage.setItem('lunchStr', context.lunchStr);
+        localStorage.setItem('leaveStr', context.leaveStr);
+        localStorage.setItem('gSun', context.gSun);
+        localStorage.setItem('gMon', context.gMon);
+        localStorage.setItem('gTue', context.gTue);
+        localStorage.setItem('gWed', context.gWed);
+        localStorage.setItem('gThu', context.gThu);
+        localStorage.setItem('gFri', context.gFri);
+        localStorage.setItem('gSat', context.gSat);
     }
 }

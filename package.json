@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "rimraf": "rimraf",
-    "tslint": "tslint -c tslint.json",
+    "tslint": "tslint -c tslint.json --force",
     "typedoc": "typedoc",
     "typings": "typings",
     "webpack": "webpack",
