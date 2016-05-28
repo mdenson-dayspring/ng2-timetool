@@ -1,21 +1,21 @@
 import { List } from './merge.util';
 
-describe('Mergable List', function () {
-    it('Can construct from an array', function () {
+describe('Mergable List', () => {
+    it('Can construct from an array', () => {
         let odds = new List([1, 3, 5, 7]);
         let evens = new List([2, 4, 6, 8]);
         expect(odds.length()).toBe(4);
         expect(evens.length()).toBe(4);
         expect(evens.get(1)).toBe(4);
     });
-    it('Get Exception getting past end', function () {
+    it('Get Exception getting past end', () => {
         let odds = new List([1, 3, 5, 7]);
         try {
             odds.get(6);
             fail("Didn't throw error.");
         } catch (e) { }
     });
-    it('Can do a simple merge of two lists', function () {
+    it('Can do a simple merge of two lists', () => {
         let odds = new List([1, 3, 5, 7]);
         let evens = new List([2, 4, 6, 8]);
         let all = odds.merge(evens);
@@ -26,7 +26,7 @@ describe('Mergable List', function () {
         expect(all.get(6)).toBe(7);
         expect(all.get(7)).toBe(8);
     });
-    it('Can do a simple merge of two lists (one empty)', function () {
+    it('Can do a simple merge of two lists (one empty)', () => {
         let odds = new List([]);
         let evens = new List([2, 4, 6, 8]);
         let all = odds.merge(evens);
@@ -38,12 +38,12 @@ describe('Mergable List', function () {
     });
 });
 
-describe('Mergable List (Simple Linear Merge)', function () {
-    it('Can do a linear merge of no lists', function () {
+describe('Mergable List (Simple Linear Merge)', () => {
+    it('Can do a linear merge of no lists', () => {
         let all = List.mergeLinear();
         expect(all.length()).toBe(0);
     });
-    it('Can do a linear merge of two lists', function () {
+    it('Can do a linear merge of two lists', () => {
         let odds = new List([1, 3, 5, 7]);
         let evens = new List([2, 4, 6, 8]);
         let all = List.mergeLinear(odds, evens);
@@ -54,7 +54,7 @@ describe('Mergable List (Simple Linear Merge)', function () {
         expect(all.get(6)).toBe(7);
         expect(all.get(7)).toBe(8);
     });
-    it('Can do a linear merge of four lists', function () {
+    it('Can do a linear merge of four lists', () => {
         let one = new List([1, 3, 5, 7]);
         let two = new List([2, 4, 6, 8]);
         let three = new List([20, 40, 60, 80]);
@@ -74,12 +74,12 @@ describe('Mergable List (Simple Linear Merge)', function () {
     });
 });
 
-describe('Mergable List (Tournament Merge)', function () {
-    it('Can do a merge of no lists', function () {
+describe('Mergable List (Tournament Merge)', () => {
+    it('Can do a merge of no lists', () => {
         let all = List.mergeTournament();
         expect(all.length()).toBe(0);
     });
-    it('Can do a merge of two lists', function () {
+    it('Can do a merge of two lists', () => {
         let odds = new List([1, 3, 5, 7]);
         let evens = new List([2, 4, 6, 8]);
         let all = List.mergeTournament(odds, evens);
@@ -90,7 +90,7 @@ describe('Mergable List (Tournament Merge)', function () {
         expect(all.get(6)).toBe(7);
         expect(all.get(7)).toBe(8);
     });
-    it('Can do a merge of four lists', function () {
+    it('Can do a merge of four lists', () => {
         let one = new List([1, 3, 5, 7]);
         let two = new List([2, 4, 6, 8]);
         let three = new List([20, 40, 60, 80]);
@@ -108,7 +108,7 @@ describe('Mergable List (Tournament Merge)', function () {
         expect(all.get(10)).toBe(24);
         expect(all.get(11)).toBe(40);
     });
-    it('Can do a merge of three lists', function () {
+    it('Can do a merge of three lists', () => {
         let one = new List([1, 3, 5, 7]);
         let two = new List([2, 4, 6, 8]);
         let four = new List([22, 24]);

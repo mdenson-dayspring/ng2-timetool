@@ -13,13 +13,15 @@ import { Context, HM } from './models';
 @Component({
     selector: 'app',
     template: `
-        <h1>Today's Progress -  {{ time }}</h1>
-        <nav>
-          <a [routerLink]="['Now']">Now</a>
-          <a [routerLink]="['Eod']">End</a>
-          <a [routerLink]="['Settings']">Setting</a>
-        </nav>
-        <router-outlet></router-outlet>
+        <div *ngIf="time">
+            <h1>Today's Progress -  {{ time }}</h1>
+            <nav>
+            <a [routerLink]="['Now']">Now</a>
+            <a [routerLink]="['Eod']">End</a>
+            <a [routerLink]="['Settings']">Setting</a>
+            </nav>
+            <router-outlet></router-outlet>
+        </div>
     `,
     styles: [require('app/app.component.css')],
     directives: [ROUTER_DIRECTIVES],
