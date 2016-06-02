@@ -11,6 +11,11 @@ export interface Generator {
  *     a = 69069
  *     c = 1234567
  *     m = 429496729
+ *
+ * Test vectors.
+ *     0         => '87A241940B566568CF4A'
+ *     12345678  => 'FD2027C2E1B4AB760588'
+ *     987654321 => '44FB86D518BF7A392CC3'
  */
 export class LCGGen implements Generator {
     private a = 69069;
@@ -46,7 +51,7 @@ export class RC4Gen implements Generator {
     private k: number;
     private z: number;
 
-    constructor(key) {
+    constructor(key: (string | number[])) {
         let keyBytes: number[] = [];
         if (typeof key === 'string') {
             for (let i = 0; i < key.length; i++) {
@@ -149,7 +154,7 @@ export class Rand {
         return keyStream;
     }
 
-    static testDice(generator: Generator) {
+    static testDice(generator: Generator): number[] {
         let dice: number[] = [];
 
         for (let i = 0; i < 6; i++) {
