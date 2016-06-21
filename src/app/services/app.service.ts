@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/share';
 
-import { Context, HM, Today } from './models';
+import { Context, HM, Today } from '../models';
 
 @Injectable()
 export class AppState {

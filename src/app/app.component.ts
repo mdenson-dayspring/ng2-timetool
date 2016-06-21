@@ -7,7 +7,7 @@ import {EodComponent} from './eod/eod.component';
 import {NowComponent} from './now/now.component';
 import {SettingsComponent} from './settings/settings.component';
 
-import { AppState } from './app.service';
+import { AppState } from './services';
 import { Context, HM } from './models';
 
 @Component({

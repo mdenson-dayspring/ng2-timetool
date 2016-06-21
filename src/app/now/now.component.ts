@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Context } from '../models';
-import { AppState } from '../app.service';
+import { AppState } from '../services';
 
 import { TimelineComponent } from '../timeline/timeline.component';
 import { WeekChartDirective } from '../weekchart/weekchart.component';

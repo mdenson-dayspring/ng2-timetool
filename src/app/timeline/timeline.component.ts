@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { Context } from '../models';
-import { AppState } from '../app.service';
+import { AppState } from '../services';
 
 @Component({
     template: require('./timeline.component.html'),

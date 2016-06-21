@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { AppState } from '../app.service';
+import { AppState } from '../services';
 
 @Component({
     template: `
