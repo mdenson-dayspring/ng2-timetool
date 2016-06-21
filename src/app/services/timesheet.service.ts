@@ -9,7 +9,7 @@ import { DayInfo } from '../models';
 
 @Injectable()
 export class TimesheetService {
-    private _week$: Subject<DayInfo[]>;
+    public week$: Subject<DayInfo[]>;
     private baseUrl: string;
     private dataStore: {  // This is where we will store our data in memory
         week: DayInfo[]
@@ -19,11 +19,7 @@ export class TimesheetService {
     constructor(private http: Http) {
         this.baseUrl = 'http://malachi/timesheetPHP/staff/staff_json.php';
         this.dataStore = { week: [] };
-        this._week$ = <Subject<DayInfo[]>>new Subject();
-    }
-
-    get week$() {
-        return this._week$.asObservable();
+        this.week$ = <Subject<DayInfo[]>>new Subject();
     }
 
     loadTimeData(today: Date, staff: string) {
@@ -33,7 +29,7 @@ export class TimesheetService {
             .map(response => response.json())
             .subscribe(data => {
                 this.dataStore.week = data;
-                this._week$.next(this.dataStore.week);
+                this.week$.next(this.dataStore.week);
             }, error => console.log('Could not load week.'));
     }
 
