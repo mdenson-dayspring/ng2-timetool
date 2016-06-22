@@ -1,38 +1,73 @@
 /**
  * Created by mdenson on 12/11/2015.
  */
-import { HM } from './hourminute.model';
-import { Today } from './today.model';
+import { HM } from './index';
 
 export class DayInfo {
     name: string;
-    goal: HM;
-    actual: HM;
+    private _goal: HM;
+    private _actual: HM;
 
-    constructor(name: string, goal: string, actual: HM) {
+    constructor(name: string, goal?: (string | HM), actual?: (string | HM)) {
         this.name = name;
         if (goal) {
-            this.goal = new HM(goal);
+            this.setGoal(goal);
         }
-        this.actual = actual;
+        if (actual) {
+            this.setActual(actual);
+        }
     }
-    public show(): boolean {
-        return (this.goal !== undefined) || (this.actual !== undefined);
+
+    show(): boolean {
+        return (this._goal !== undefined) || (this._actual !== undefined);
     };
-    public diffHM(): string {
-        if (this.actual) {
-            return this.actual.sub(this.goal).toString('↑', '↓');
+
+    setActual(a: (string | HM)) {
+        if (typeof a === 'string') {
+            this._actual = new HM(a);
         } else {
-            return '';
+            this._actual = a;
         }
-    };
-    public toString(estimate = false): string {
+    }
+    getActual(): HM {
+        return this._actual;
+    }
+    setGoal(g: (string | HM)) {
+        if (typeof g === 'string') {
+            this._goal = new HM(g);
+        } else {
+            this._goal = g;
+        }
+    }
+    getGoal(): HM {
+        return this._goal;
+    }
+
+    getHours(estimate = false): string {
+        if (estimate && this._goal) {
+            return ('     ' + this._goal.toString()).substr(-5);
+        } else if (!estimate && this._actual) {
+            return ('     ' + this._actual.toString()).substr(-5);
+        }
+
+        return undefined;
+    }
+    getDiff(estimate = false): string {
+        if (this.show) {
+            if (!estimate && this._actual) {
+                return this._actual.sub(this._goal).toString('↑', '↓');
+            }
+        }
+
+        return undefined;
+    }
+
+    toString(estimate = false): string {
         let name = (this.name + '         ').substr(0, 9);
-        let actual = ('     ' + this.goal.toString()).substr(-5);
-        let diff = ' _____';
-        if (!estimate) {
-            actual = ('     ' + this.actual.toString()).substr(-5);
-            diff = ('      ' + this.diffHM()).substr(-6);
+        let actual = this.getHours(estimate);
+        let diff = this.getDiff(estimate);
+        if (!diff) {
+            diff = ' _____';
         }
         return name + ' ' + actual + ' ' + diff;
     };

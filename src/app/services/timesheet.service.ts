@@ -9,7 +9,7 @@ import { DayInfo } from '../models';
 
 @Injectable()
 export class TimesheetService {
-    public week$: Subject<DayInfo[]>;
+    week$: Subject<DayInfo[]>;
     private baseUrl: string;
     private dataStore: {  // This is where we will store our data in memory
         week: DayInfo[]

@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Context } from '../models';
+import { Context, DayInfo } from '../models';
 import { AppState } from '../services';
 
 import { TimelineComponent } from '../timeline/timeline.component';
-import { WeekChartDirective } from '../weekchart/weekchart.component';
+import { WeekComponent } from '../week';
 
 @Component({
     template: require('app/now/now.component.html'),
     selector: 'now-summary',
-    directives: [TimelineComponent, WeekChartDirective]
+    directives: [TimelineComponent, WeekComponent]
 })
 export class NowComponent implements OnInit {
     hours: string;
@@ -22,6 +22,7 @@ export class NowComponent implements OnInit {
         this._appState.context$.subscribe(updated => {
             this.setHours(updated);
         });
+
     }
 
     setHours(context: Context) {

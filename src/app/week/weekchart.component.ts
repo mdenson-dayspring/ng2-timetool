@@ -1,19 +1,27 @@
 import { Directive, ElementRef, Input } from '@angular/core';
+import { DayInfo } from '../models';
 
 @Directive({
     selector: 'weekchart'
 })
 export class WeekChartDirective {
     el: HTMLElement;
-    _content: string = '';
+    private _content: DayInfo[];
+    private _todayNdx: number;
 
     @Input()
-    set content(c: string) {
+    set dayOfWeek(dow: number) {
+        this._todayNdx = dow;
+    }
+
+    @Input()
+    set content(c: DayInfo[]) {
         console.log('Setting content ...');
         this._content = c;
-        this.draw();
+        if (c !== undefined) {
+            this.draw();
+        }
     }
-    get content(): string { return this._content; }
 
     constructor(elementRef: ElementRef) {
         console.log('Constructing WeekChartComponent');
@@ -27,16 +35,21 @@ export class WeekChartDirective {
         console.log('Drawing the data');
 
         let data = new google.visualization.DataTable();
-        data.addColumn('string', undefined);
-        data.addColumn('number', undefined);
-        data.addColumn('number', undefined);
-        data.addRows([
-            ['Monday', 9, 1],
-            ['Tuesday', 1, -7],
-            ['Wednesday', 1, -7],
-            ['Thursday', 8, undefined],
-            ['Friday', 8, undefined]
-        ]);
+        data.addColumn('string', 'Day');
+        data.addColumn('string', 'Hours');
+        data.addColumn('string', 'Diff');
+
+        let dataList: any = this._content
+            .map((item, ndx) => {
+                let estimate = (this._todayNdx < ndx);
+                if (item.show()) {
+                    return [item.name, item.getHours(estimate), item.getDiff(estimate)];
+                }
+            })
+            .filter(item => {
+                return (item !== undefined);
+            });
+        data.addRows(dataList);
 
         // Set chart options
         let options = {
@@ -47,7 +60,7 @@ export class WeekChartDirective {
             'showRowNumber': false
         };
 
-        let formatter = new google.visualization.ArrowFormat({width: 40});
+        let formatter = new google.visualization.ArrowFormat({ width: 40 });
         formatter.format(data, 2);
 
         // Instantiate and draw our chart, passing in some options.

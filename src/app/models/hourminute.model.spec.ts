@@ -1,4 +1,4 @@
-import { HM } from './hourminute.model';
+import { HM } from './index';
 
 describe('HourMinute Model Class', () => {
     it('Can construct from string', () => {
