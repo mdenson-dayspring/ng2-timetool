@@ -89,6 +89,15 @@ describe('HourMinute Model Class', () => {
         expect(two.sub(one).toString()).toBe('-9:48');
     });
 
+    it('equality test', () => {
+        let one = new HM(4, 12);
+        let two = new HM(5, 36);
+        let three = new HM(4, 12);
+        expect(one.equals(two)).toBe(false);
+        expect(one.equals(one)).toBe(true);
+        expect(one.equals(three)).toBe(true);
+    });
+
     it('test HM.now()', () => {
         let nowDate = new Date();
         let nowHM = HM.Now();

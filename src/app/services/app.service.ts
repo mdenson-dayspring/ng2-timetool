@@ -72,7 +72,7 @@ export class AppState {
             })
             .filter((value) => {
                 let c: Context = this._dataStore.context;
-                return (!c.now || c.now.leave.minutes !== value.minutes);
+                return (!c.now || !c.now.leave.equals(value));
             })
             .do((v: HM) => this.updateNow(v))
             .map(() => {

@@ -12,7 +12,7 @@ export class HM {
     constructor(minutes: number);
     constructor(strValue: string);
     constructor(hour: number, min: number);
-    constructor(param1: (string|number|HM), param2?: number) {
+    constructor(param1: (string | number | HM), param2?: number) {
         if (param2 !== undefined) {
             this._minutes = this._toMinutes(<number>param1, param2);
         } else if (typeof param1 === 'number') {
@@ -26,6 +26,10 @@ export class HM {
 
     get minutes(): number {
         return this._minutes;
+    }
+
+    equals(other: HM): boolean {
+        return (this.minutes === other.minutes);
     }
 
     toString(pos = '', neg = '-'): string {
@@ -63,7 +67,7 @@ export class HM {
             }
             let parts = value.split(':');
             this._minutes = this._toMinutes(sign * parseFloat(parts[0]),
-                                           sign * parseFloat(parts[1]));
+                sign * parseFloat(parts[1]));
         } else {
             throw new Error('Invalid time string.');
         }

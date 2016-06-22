@@ -10,7 +10,7 @@ import { WeekChartDirective } from '../week/weekchart.component';
     selector: 'week-summary',
     directives: [WeekChartDirective]
 })
-export class WeekComponent implements OnInit {
+export class WeekComponent {
     todayDoW: number;
     week: DayInfo[];
 
@@ -18,7 +18,7 @@ export class WeekComponent implements OnInit {
     private _showNow: boolean = false;
     private todayHoursHM: HM;
 
-    private _appContext: Context; 
+    private _appContext: Context;
 
     @Input()
     set todayHours(hours: number) {
