@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 
 import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
 
 import { DayInfo } from '../models';
@@ -19,7 +18,7 @@ export class TimesheetService {
     constructor(private http: Http) {
         this.baseUrl = 'http://malachi/timesheetPHP/staff/staff_json.php';
         this.dataStore = { week: [] };
-        this.week$ = <Subject<DayInfo[]>>new Subject();
+        this.week$ = <Subject<DayInfo[]>>new BehaviorSubject( [] );
     }
 
     loadTimeData(today: Date, staff: string) {
@@ -35,7 +34,7 @@ export class TimesheetService {
 
     private _isoDate(d: Date) {
         function pad(s: number): String {
-            return (s < 10) ? '0${s}' : '${s}';
+            return (s < 10) ? '0' + s : '' + s;
         }
         return [d.getFullYear(), pad(d.getMonth() + 1), pad(d.getDate())].join('-');
     }

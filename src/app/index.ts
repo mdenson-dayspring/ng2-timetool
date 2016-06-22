@@ -1,10 +1,11 @@
 // App
 export * from './app.component';
 
-import { AppState } from './services';
+import { TimesheetService, AppState } from './services';
 
 // Application wide providers
 export const APP_PROVIDERS = [
-  AppState
+  AppState,
+  TimesheetService
 ];
 

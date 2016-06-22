@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input } from '@angular/core';
-import { DayInfo } from '../models';
+import { DayInfo, HM } from '../models';
 
 @Directive({
     selector: 'weekchart'
@@ -39,16 +39,33 @@ export class WeekChartDirective {
         data.addColumn('string', 'Hours');
         data.addColumn('string', 'Diff');
 
+        let totalGoal: number = 0;
+        let totalActual: number = 0;
         let dataList: any = this._content
-            .map((item, ndx) => {
-                let estimate = (this._todayNdx < ndx);
-                if (item.show()) {
-                    return [item.name, item.getHours(estimate), item.getDiff(estimate)];
+            .map((day, ndx) => {
+                if (day.show()) {
+                    totalGoal += day.getGoal().minutes;
+                    let printEstimate = false;
+                    if (ndx >= this._todayNdx && day.getActual() === undefined) {
+                        totalActual += day.getGoal().minutes;
+                        printEstimate = true;
+                    } else if (day.getActual() !== undefined) {
+                        totalActual += day.getActual().minutes;
+                    } else if (day.getActual() === undefined) {
+                        day.setActual(new HM(0));
+                    }
+                    return [day.name, day.getHours(printEstimate), day.getDiff(printEstimate)];
                 }
             })
             .filter(item => {
                 return (item !== undefined);
             });
+        let totalDI = new DayInfo('Total', new HM(totalGoal), new HM(totalActual));
+        dataList.push([
+            'Total',
+            totalDI.getHours(false),
+            totalDI.getDiff(false)
+        ]);
         data.addRows(dataList);
 
         // Set chart options

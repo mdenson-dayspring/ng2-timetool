@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { Context, DayInfo, HM } from '../models';
-import { AppState } from '../services';
+import { TimesheetService, AppState } from '../services';
 
 import { WeekChartDirective } from '../week/weekchart.component';
 
@@ -10,7 +10,7 @@ import { WeekChartDirective } from '../week/weekchart.component';
     selector: 'week-summary',
     directives: [WeekChartDirective]
 })
-export class WeekComponent {
+export class WeekComponent implements OnInit {
     todayDoW: number;
     week: DayInfo[];
 
@@ -25,8 +25,12 @@ export class WeekComponent {
         this.today = new Date();
         this.todayDoW = this.today.getDay();
         this.todayHoursHM = new HM(hours);
-        this.fillHours();
+
+        let staff = this._appState.getContext().staff;
+
+        this._timesheetService.loadTimeData(this.today, staff);
     }
+
     get todayHoursDisplay(): string {
         return this.todayHoursHM.toString();
     }
@@ -40,14 +44,24 @@ export class WeekComponent {
     }
 
 
-    constructor(private _appState: AppState) {
+    constructor(
+        private _appState: AppState,
+        private _timesheetService: TimesheetService
+    ) {
         this.today = new Date();
         this.todayDoW = this.today.getDay();
     }
 
-    private fillHours() {
+    ngOnInit() {
+        this._timesheetService.week$.subscribe(updated => {
+            this.fillHours(updated);
+        });
+
+    }
+
+    private fillHours(weekActuals: any[]) {
         let context = this._appState.getContext();
-        let week = [
+        let week: DayInfo[] = [
             new DayInfo('Sunday', context.gSun),
             new DayInfo('Monday', context.gMon),
             new DayInfo('Tuesday', context.gTue),
@@ -57,13 +71,13 @@ export class WeekComponent {
             new DayInfo('Saturday', context.gSat)
         ];
 
-        week[1].setActual('8:00');
-        week[2].setActual('8:06');
-        week[3].setActual('7:30');
-        week[4].setActual('8:00');
-        week[5].setActual('8:00');
+        weekActuals.forEach(actual => {
+            week[actual.day_of_week].setActual(new HM(actual.minutes));
+        });
 
-        week[this.todayDoW].setActual(this.todayHoursHM);
+        if (week[this.todayDoW].getActual() === undefined) {
+            week[this.todayDoW].setActual(this.todayHoursHM);
+        }
 
         this.week = week;
     }
