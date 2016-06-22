@@ -9,8 +9,8 @@ export class Today {
 
     constructor(arrive?: HM, lunch?: HM, leave?: HM) {
         if (arrive === undefined) arrive = new HM(0);
-        if (lunch === undefined) arrive = new HM(0);
-        if (leave === undefined) leave = new HM(arrive.decimal);
+        if (lunch === undefined) lunch = new HM(0);
+        if (leave === undefined) leave = new HM(arrive);
 
         this.arrive = arrive;
         this.lunch = lunch;

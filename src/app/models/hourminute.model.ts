@@ -1,51 +1,52 @@
 export class HM {
-    decimal: number;
+    private _minutes: number;
 
     static Now(): HM {
-        let now = new Date(), hour, min;
-        hour = now.getHours();
-        min = now.getMinutes();
+        let now = new Date();
+        let hour = now.getHours();
+        let min = now.getMinutes();
         return new HM(hour, min);
     }
 
-    constructor(decimal: number);
+    constructor(hoursminutes: HM);
+    constructor(minutes: number);
     constructor(strValue: string);
     constructor(hour: number, min: number);
-    constructor(param1: (string|number), param2?: number) {
+    constructor(param1: (string|number|HM), param2?: number) {
         if (param2 !== undefined) {
-            this.set(<number>param1, param2);
+            this._minutes = this._toMinutes(<number>param1, param2);
         } else if (typeof param1 === 'number') {
-            this.decimal = param1;
-        } else {
+            this._minutes = param1;
+        } else if (typeof param1 === 'string') {
             this.parse(<string>param1);
+        } else {
+            this._minutes = (<HM>param1).minutes;
         }
     }
 
-    public toString(pos = '', neg = '-'): string {
-        let sign = (this.decimal < 0) ? -1 : 1;
-        let decimal = Math.abs(this.decimal);
-        let hours = Math.floor(decimal);
-        let minutes = Math.round((decimal - hours) * 60);
+    get minutes(): number {
+        return this._minutes;
+    }
 
-        if (minutes === 60) {
-            hours++;
-            minutes = 0;
-        }
+    toString(pos = '', neg = '-'): string {
+        let sign = Math.sign(this._minutes);
+        let hours = this.hours();
+        let minutes = this.min();
 
         let s = (sign < 0) ? neg : pos;
-        if (decimal < 0.01) {
+        if (this._minutes === 0) {
             s = '';
         }
         let minstr = ('00' + minutes).substr(-2);
         return s + hours + ':' + minstr;
     }
 
-    public add(add2: HM): HM {
-        return new HM(this.decimal + add2.decimal);
+    add(add2: HM): HM {
+        return new HM(this._minutes + add2._minutes);
     }
 
-    public sub(sub2: HM): HM {
-        return new HM(this.decimal - sub2.decimal);
+    sub(sub2: HM): HM {
+        return new HM(this._minutes - sub2._minutes);
     }
 
     private parse(value: string) {
@@ -61,19 +62,33 @@ export class HM {
                 sign = 1;
             }
             let parts = value.split(':');
-            this.decimal = sign * (parseFloat(parts[0]) + (parseFloat(parts[1]) / 60));
+            this._minutes = this._toMinutes(sign * parseFloat(parts[0]),
+                                           sign * parseFloat(parts[1]));
         } else {
             throw new Error('Invalid time string.');
         }
     }
 
-    private set(hour: number, min: number) {
-        let sign: number, decimal: number;
+    private hours(): number {
+        return Math.floor(Math.abs(this._minutes) / 60);
+    }
+
+    private min(): number {
+        return Math.abs(this._minutes) % 60;
+    }
+
+    private _toMinutes(hour: number, min: number) {
+        let sign: number;
+
         if (hour !== 0) {
-            sign = (hour < 0) ? -1 : 1;
+            sign = Math.sign(hour);
         } else {
-            sign = (min < 0) ? -1 : 1;
+            sign = Math.sign(min);
         }
-        this.decimal = sign * (Math.abs(hour) + Math.abs(min / 60));
+
+        hour = Math.abs(hour);
+        min = Math.abs(min);
+
+        return sign * ((hour * 60) + min);
     }
 }
