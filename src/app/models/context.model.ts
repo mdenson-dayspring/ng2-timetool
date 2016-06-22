@@ -1,5 +1,4 @@
-import {HM} from './hourminute.model';
-import {Today} from './today.model';
+import { HM, Today } from './index';
 
 export class Context {
     today: Today;

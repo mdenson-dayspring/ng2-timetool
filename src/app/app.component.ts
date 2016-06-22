@@ -3,26 +3,16 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
 import { OnInit } from '@angular/core';
 import 'rxjs/Rx';
 
-import {EodComponent} from './eod.component';
-import {NowComponent} from './now.component';
-import {SettingsComponent} from './settings.component';
+import {EodComponent} from './eod/eod.component';
+import {NowComponent} from './now/now.component';
+import {SettingsComponent} from './settings/settings.component';
 
-import { AppState } from './app.service';
+import { AppState } from './services';
 import { Context, HM } from './models';
 
 @Component({
     selector: 'app',
-    template: `
-        <div *ngIf="time">
-            <h1>Today's Progress -  {{ time }}</h1>
-            <nav>
-            <a [routerLink]="['Now']">Now</a>
-            <a [routerLink]="['Eod']">End</a>
-            <a [routerLink]="['Settings']">Setting</a>
-            </nav>
-            <router-outlet></router-outlet>
-        </div>
-    `,
+    template: require('app/app.component.html'),
     styles: [require('app/app.component.css')],
     directives: [ROUTER_DIRECTIVES],
     providers: [

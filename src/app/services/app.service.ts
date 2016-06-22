@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/share';
 
-import { Context, HM, Today } from './models';
+import { Context, HM, Today } from '../models';
 
 @Injectable()
 export class AppState {
@@ -72,7 +72,7 @@ export class AppState {
             })
             .filter((value) => {
                 let c: Context = this._dataStore.context;
-                return (!c.now || c.now.leave.decimal !== value.decimal);
+                return (!c.now || !c.now.leave.equals(value));
             })
             .do((v: HM) => this.updateNow(v))
             .map(() => {

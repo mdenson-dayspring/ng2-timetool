@@ -5,7 +5,7 @@ import {bootstrap} from '@angular/platform-browser-dynamic';
 import {ROUTER_PROVIDERS} from '@angular/router-deprecated';
 import { provide }              from '@angular/core';
 import { LocationStrategy,
-         HashLocationStrategy } from '@angular/common';
+  HashLocationStrategy } from '@angular/common';
 /*
 * Platform and Environment
 * our providers/directives/pipes
@@ -29,13 +29,13 @@ export function main(initialHmrState?: any): Promise<any> {
     ...PROVIDERS,
     ...ROUTER_PROVIDERS,
     provide(LocationStrategy,
-         {useClass: HashLocationStrategy}),
+      { useClass: HashLocationStrategy }),
     ...ENV_PROVIDERS,
     ...DIRECTIVES,
     ...PIPES,
     ...APP_PROVIDERS
   ])
-  .catch(err => console.error(err));
+    .catch(err => console.error(err));
 
 }
 
@@ -49,7 +49,9 @@ export function main(initialHmrState?: any): Promise<any> {
  * You can also import them in vendors to ensure that they are bundled in one file
  * Also see custom-typings.d.ts as you also need to do `typings install x` where `x` is your module
  */
-
+google.load('visualization', '1.0', {
+  'packages': ['corechart']
+});
 
 /*
  * Hot Module Reload
