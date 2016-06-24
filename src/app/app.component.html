@@ -1,9 +1,21 @@
 <div *ngIf="time">
-    <h1>Today's Progress -  {{ time }}</h1>
-    <nav>
-        <a [routerLink]="['Now']">Now</a>
-        <a [routerLink]="['Eod']">End</a>
-        <a [routerLink]="['Settings']">Setting</a>
+    <nav id="tt-navbar" class="navbar navbar-inverse navbar-fixed_top">
+        <div class="container">
+            <div class="navbar-header">
+                <span class="navbar-brand" href="#">{{ time }}</span>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a [routerLink]="['Now']">Now</a></li>
+                <li><a [routerLink]="['Eod']">End</a></li>
+                <li><a [routerLink]="['Settings']">Setting</a></li>
+            </ul>
+        </div>
     </nav>
-    <router-outlet></router-outlet>
+    <div class="container">
+        <div class="row">
+            <div class="main">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
 </div>
