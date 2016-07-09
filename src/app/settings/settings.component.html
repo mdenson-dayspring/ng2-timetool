@@ -1,15 +1,18 @@
 <form class="simple-form">
-    <label>Staff :</label> <input type="text"  [(ngModel)]="_context.staff" required><br />
-    <label>Arrive:</label> <input type="text"  [(ngModel)]="_context.arriveStr" required><br />
-    <label>Lunch :</label> <input type="text"  [(ngModel)]="_context.lunchStr" required><br />
-    <label>Leave :</label> <input type="text"  [(ngModel)]="_context.leaveStr" required><br />
+    <h3>Today ...</h3>
+    <label>I arrived at :</label>   <input type="text" [(ngModel)]="_context.arriveStr" required><br />
+    <label>Lunch will take:</label> <input type="text" [(ngModel)]="_context.lunchStr" required><br />
+    <label>I'll leave at:</label>   <input type="text" [(ngModel)]="_context.leaveStr" required><br />
 
-    <h3>Goals</h3>
-    Sunday :    <input type="text"  [(ngModel)]="_context.gSun"><br />
-    Monday :    <input type="text"  [(ngModel)]="_context.gMon"><br />
-    Tuesday :   <input type="text"  [(ngModel)]="_context.gTue"><br />
-    Wednesday : <input type="text"  [(ngModel)]="_context.gWed"><br />
-    Thursday :  <input type="text"  [(ngModel)]="_context.gThu"><br />
-    Friday :    <input type="text"  [(ngModel)]="_context.gFri"><br />
-    Saturday :  <input type="text"  [(ngModel)]="_context.gSat"><br />
+    <h3>Settings</h3>
+    <label>Staff :</label>     <input type="text" [(ngModel)]="_context.staff" required><br />
+
+    <h4>Daily Goals</h4>
+    <label>Sunday :</label>    <input type="text" [(ngModel)]="_context.gSun"><br />
+    <label>Monday :</label>    <input type="text" [(ngModel)]="_context.gMon"><br />
+    <label>Tuesday :</label>   <input type="text" [(ngModel)]="_context.gTue"><br />
+    <label>Wednesday :</label> <input type="text" [(ngModel)]="_context.gWed"><br />
+    <label>Thursday :</label>  <input type="text" [(ngModel)]="_context.gThu"><br />
+    <label>Friday :</label>    <input type="text" [(ngModel)]="_context.gFri"><br />
+    <label>Saturday :</label>  <input type="text" [(ngModel)]="_context.gSat"><br />
 </form>

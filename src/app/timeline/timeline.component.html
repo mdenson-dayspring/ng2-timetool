@@ -1,5 +1,16 @@
 <div *ngIf="context.today">
-  <span class="label label-default">{{ context.today.arrive.toString() }}</span>
-  <span class="label label-default">{{ context.today.lunch.toString() }}</span>
-  <span class="label label-default">{{ context.today.leave.toString() }}</span>
+  <span class="label label-pill label-success">{{ context.today.arrive.toString() }}</span>
+  <span class="label label-pill label-warning">{{ context.today.lunch.toString() }}</span>
+  <span class="label label-pill label-success">{{ context.today.leave.toString() }}</span>
+  <div class="progress">
+    <div class="progress-bar progress-bar-success" [style.width]="am">
+      <span class="sr-only">{{ am }} Complete</span>
+    </div>
+    <div class="progress-bar progress-bar-warning progress-bar-striped" [style.width]="lunch">
+      <span class="sr-only">{{ lunch }} Complete (lunch)</span>
+    </div>
+    <div class="progress-bar progress-bar-success" [style.width]="pm">
+      <span class="sr-only">{{ pm }} Complete</span>
+    </div>
+  </div>
 </div>
