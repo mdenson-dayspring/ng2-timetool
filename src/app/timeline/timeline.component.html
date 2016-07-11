@@ -1,16 +1,26 @@
 <div *ngIf="context.today">
-  <span class="label label-pill label-success">{{ context.today.arrive.toString() }}</span>
-  <span class="label label-pill label-warning">{{ context.today.lunch.toString() }}</span>
-  <span class="label label-pill label-success">{{ context.today.leave.toString() }}</span>
-  <div class="progress">
-    <div class="progress-bar progress-bar-success" [style.width]="am">
-      <span class="sr-only">{{ am }} Complete</span>
+  <div class="row" style="margin-bottom: 8px;">
+    <div class="col-xs-4" style="padding-left: 0px;">
+      <span class="label label-pill label-success">{{ context.today.arrive.toString() }}</span>
     </div>
-    <div class="progress-bar progress-bar-warning progress-bar-striped" [style.width]="lunch">
-      <span class="sr-only">{{ lunch }} Complete (lunch)</span>
+    <div class="col-xs-4" style="text-align: center;">
+      <span class="label label-pill label-warning">{{ context.today.lunch.toString() }}</span>
     </div>
-    <div class="progress-bar progress-bar-success" [style.width]="pm">
-      <span class="sr-only">{{ pm }} Complete</span>
+    <div class="col-xs-4" style="text-align: right; padding-right: 0px;">
+      <span class="label label-pill label-success">{{ context.today.leave.toString() }}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="progress" title="Time left today: {{ timeLeft }}">
+      <div class="progress-bar progress-bar-success" [style.width]="am" title="Time worked so far: {{ timeWorked }}">
+        <span class="sr-only">Time worked so far: {{ timeWorked }}</span>
+      </div>
+      <div class="progress-bar progress-bar-warning progress-bar-striped" [style.width]="lunch" title="Time today (inc. lunch): {{ timeTotal }}">
+        <span class="sr-only">Time today (inc. lunch): {{ timeTotal }}</span>
+      </div>
+      <div class="progress-bar progress-bar-success" [style.width]="pm" title="Time worked so far: {{ timeWorked }}">
+        <span class="sr-only"> title="Time worked so far: {{ timeWorked }}"</span>
+      </div>
     </div>
   </div>
 </div>

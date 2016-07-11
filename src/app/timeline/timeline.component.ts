@@ -9,6 +9,9 @@ import { AppState } from '../services';
 })
 export class TimelineComponent implements OnInit {
     context: Context;
+    timeWorked: string;
+    timeTotal: string;
+    timeLeft: string;
     am: string;
     lunch: string;
     pm: string;
@@ -31,15 +34,21 @@ export class TimelineComponent implements OnInit {
         let afterLunch = noon.add(context.today.lunch);
         let noonMinutes = noon.sub(context.today.arrive);
 
+        this.timeWorked = context.now.hoursLessLunch.toString();
+        this.timeTotal = context.now.hours.toString();
+        this.timeLeft = context.today.timeLeft().toString();
+
         let totalMin = context.today.hours.minutes;
         if (context.now.leave.minutes < noon.minutes) {
             console.log('am');
             amPerc = Math.round( context.now.hours.minutes / totalMin * 100);
+            this.timeWorked = context.now.hours.toString();
         } else if (context.now.leave.minutes < afterLunch.minutes) {
             console.log('lunch');
-            amPerc = Math.round(noon.minutes / totalMin * 100);
+            amPerc = Math.round(noonMinutes.minutes / totalMin * 100);
             let lunch = context.now.hours.sub(noonMinutes).minutes;
             lunchPerc = Math.round(lunch / totalMin * 100);
+            this.timeWorked = noonMinutes.toString();
         } else {
             console.log('pm');
             amPerc = Math.round(noonMinutes.minutes / totalMin * 100);
