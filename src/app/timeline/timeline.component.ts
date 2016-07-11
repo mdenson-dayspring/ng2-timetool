@@ -34,18 +34,18 @@ export class TimelineComponent implements OnInit {
         let totalMin = context.today.hours.minutes;
         if (context.now.leave.minutes < noon.minutes) {
             console.log('am');
-            amPerc = Math.floor( context.now.hoursLessLunch.minutes / totalMin * 100);
+            amPerc = Math.round( context.now.hours.minutes / totalMin * 100);
         } else if (context.now.leave.minutes < afterLunch.minutes) {
             console.log('lunch');
-            amPerc = Math.floor(noon.minutes / totalMin * 100);
-            let lunch = context.now.hoursLessLunch.sub(noonMinutes).minutes;
-            lunchPerc = Math.floor(lunch / totalMin * 100);
+            amPerc = Math.round(noon.minutes / totalMin * 100);
+            let lunch = context.now.hours.sub(noonMinutes).minutes;
+            lunchPerc = Math.round(lunch / totalMin * 100);
         } else {
             console.log('pm');
-            amPerc = Math.floor(noonMinutes.minutes / totalMin * 100);
-            lunchPerc = Math.floor(context.now.lunch.minutes / totalMin * 100);
+            amPerc = Math.round(noonMinutes.minutes / totalMin * 100);
+            lunchPerc = Math.round(context.now.lunch.minutes / totalMin * 100);
             let pm = context.now.hoursLessLunch.sub(noonMinutes).minutes;
-            pmPerc = Math.floor(pm / totalMin * 100);
+            pmPerc = Math.round(pm / totalMin * 100);
         }
         console.log(amPerc, lunchPerc, pmPerc);
         if (amPerc + lunchPerc  + pmPerc> 100) {
