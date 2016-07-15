@@ -57,7 +57,7 @@ export class TimelineComponent implements OnInit {
             pmPerc = Math.round(pm / totalMin * 100);
         }
         console.log(amPerc, lunchPerc, pmPerc);
-        if (amPerc + lunchPerc  + pmPerc> 100) {
+        if (amPerc + lunchPerc  + pmPerc > 100) {
             pmPerc = 100 - (amPerc + lunchPerc);
         }
         this.am = '' + amPerc + '%';
