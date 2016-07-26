@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { Context, DayInfo, HM } from '../models';
+import { DayOfWeek, Context, DayInfo, HM } from '../models';
 import { TimesheetService, AppState } from '../services';
 
 import { WeekChartDirective } from '../week/weekchart.component';
@@ -62,13 +62,13 @@ export class WeekComponent implements OnInit {
     private fillHours(weekActuals: any[]) {
         let context = this._appState.getContext();
         let week: DayInfo[] = [
-            new DayInfo('Sunday', context.gSun),
-            new DayInfo('Monday', context.gMon),
-            new DayInfo('Tuesday', context.gTue),
-            new DayInfo('Wednesday', context.gWed),
-            new DayInfo('Thursday', context.gThu),
-            new DayInfo('Friday', context.gFri),
-            new DayInfo('Saturday', context.gSat)
+            new DayInfo('Sunday', context.goals[DayOfWeek.SUN]),
+            new DayInfo('Monday', context.goals[DayOfWeek.MON]),
+            new DayInfo('Tuesday', context.goals[DayOfWeek.TUE]),
+            new DayInfo('Wednesday', context.goals[DayOfWeek.WED]),
+            new DayInfo('Thursday', context.goals[DayOfWeek.THU]),
+            new DayInfo('Friday', context.goals[DayOfWeek.FRI]),
+            new DayInfo('Saturday', context.goals[DayOfWeek.SAT])
         ];
 
         weekActuals.forEach(actual => {

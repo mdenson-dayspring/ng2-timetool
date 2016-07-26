@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/share';
 
-import { Context, HM, Today } from '../models';
+import { DayOfWeek, Context, HM, Today } from '../models';
 
 @Injectable()
 export class AppState {
@@ -31,35 +31,55 @@ export class AppState {
 
         let dataVersion: string = localStorage.getItem('dataVersion');
 
-        if (dataVersion) {
+        if (dataVersion === '2') {
 
             context.staff = localStorage.getItem('staff');
-            context.arriveStr = localStorage.getItem('arriveStr');
-            context.lunchStr = localStorage.getItem('lunchStr');
-            context.leaveStr = localStorage.getItem('leaveStr');
+            context.expected.arrive = localStorage.getItem('arriveStr');
+            context.expected.lunch = localStorage.getItem('lunchStr');
+            context.expected.leave = localStorage.getItem('leaveStr');
 
-            context.gSun = localStorage.getItem('gSun');
-            context.gMon = localStorage.getItem('gMon');
-            context.gTue = localStorage.getItem('gTue');
-            context.gWed = localStorage.getItem('gWed');
-            context.gThu = localStorage.getItem('gThu');
-            context.gFri = localStorage.getItem('gFri');
-            context.gSat = localStorage.getItem('gSat');
+            context.goals[DayOfWeek.SUN] = localStorage.getItem('gSun');
+            context.goals[DayOfWeek.MON] = localStorage.getItem('gMon');
+            context.goals[DayOfWeek.TUE] = localStorage.getItem('gTue');
+            context.goals[DayOfWeek.WED] = localStorage.getItem('gWed');
+            context.goals[DayOfWeek.THU] = localStorage.getItem('gThu');
+            context.goals[DayOfWeek.FRI] = localStorage.getItem('gFri');
+            context.goals[DayOfWeek.SAT] = localStorage.getItem('gSat');
+            this.save(context);
+
+        } else if (dataVersion === '3') {
+
+            let dataStr = localStorage.getItem('contextData');
+            let data = JSON.parse(dataStr);
+            context.staff = data.staff;
+
+            context.expected.arrive = data.expected.arrive;
+            context.expected.lunch = data.expected.lunch;
+            context.expected.leave = data.expected.leave;
+
+            data.goals.forEach((g, ndx) => {
+                context.goals[ndx] = g;
+            });
+            this.save(context);
+
 
         } else { // defaults
 
-            context.staff = 'mdenson';
-            context.arriveStr = '09:30';
-            context.lunchStr = '00:30';
-            context.leaveStr = '17:30';
+            context = new Context();
 
-            context.gSun = '';
-            context.gMon = '7:48';
-            context.gTue = '7:48';
-            context.gWed = '7:48';
-            context.gThu = '7:48';
-            context.gFri = '7:48';
-            context.gSat = '';
+            context.staff = 'mdenson';
+
+            context.expected.arrive = '09:30';
+            context.expected.lunch = '00:30';
+            context.expected.leave = '17:30';
+
+            context.goals[DayOfWeek.SUN] = '';
+            context.goals[DayOfWeek.MON] = '7:48';
+            context.goals[DayOfWeek.TUE] = '7:48';
+            context.goals[DayOfWeek.WED] = '7:48';
+            context.goals[DayOfWeek.THU] = '7:48';
+            context.goals[DayOfWeek.FRI] = '7:48';
+            context.goals[DayOfWeek.SAT] = '';
             this.save(context);
 
         }
@@ -85,29 +105,36 @@ export class AppState {
         console.log('updateNow() ', nowHM.toString());
         let context: Context = this._dataStore.context;
         context.today = new Today(
-            new HM(context.arriveStr),
-            new HM(context.lunchStr),
-            new HM(context.leaveStr));
+            new HM(context.expected.arrive),
+            new HM(context.expected.lunch),
+            new HM(context.expected.leave));
         context.now = new Today(
-            new HM(context.arriveStr),
-            new HM(context.lunchStr),
+            new HM(context.expected.arrive),
+            new HM(context.expected.lunch),
             nowHM);
     }
 
     public save(context: Context) {
         let localStorage = window.localStorage;
-        localStorage.setItem('dataVersion', '2');
+        localStorage.setItem('dataVersion', '3');
 
-        localStorage.setItem('staff', context.staff);
-        localStorage.setItem('arriveStr', context.arriveStr);
-        localStorage.setItem('lunchStr', context.lunchStr);
-        localStorage.setItem('leaveStr', context.leaveStr);
-        localStorage.setItem('gSun', context.gSun);
-        localStorage.setItem('gMon', context.gMon);
-        localStorage.setItem('gTue', context.gTue);
-        localStorage.setItem('gWed', context.gWed);
-        localStorage.setItem('gThu', context.gThu);
-        localStorage.setItem('gFri', context.gFri);
-        localStorage.setItem('gSat', context.gSat);
+        let data = {
+            staff: context.staff,
+            expected: {
+                arrive: context.expected.arrive,
+                leave: context.expected.leave,
+                lunch: context.expected.lunch
+            },
+            goals: [
+                context.goals[DayOfWeek.SUN],
+                context.goals[DayOfWeek.MON],
+                context.goals[DayOfWeek.TUE],
+                context.goals[DayOfWeek.WED],
+                context.goals[DayOfWeek.THU],
+                context.goals[DayOfWeek.FRI],
+                context.goals[DayOfWeek.SAT]
+            ]
+        };
+        localStorage.setItem('contextData', JSON.stringify(data));
     }
 }

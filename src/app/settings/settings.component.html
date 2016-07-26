@@ -1,18 +1,29 @@
-<form class="simple-form">
-    <h3>Today ...</h3>
-    <label>I arrived at :</label>   <input type="text" [(ngModel)]="_context.arriveStr" required><br />
-    <label>Lunch will take:</label> <input type="text" [(ngModel)]="_context.lunchStr" required><br />
-    <label>I'll leave at:</label>   <input type="text" [(ngModel)]="_context.leaveStr" required><br />
+<form class="form-horizontal">
+    <h3>Today</h3>
+    <div class="form-group form-group-sm">
+        <label class="col-xs-6">I arrived at :</label>
+        <input class="col-xs-6" type="text" [(ngModel)]="_context.expected.arrive" required><br />
+    </div>
+    <div class="form-group form-group-sm">
+        <label class="col-xs-6">Lunch will take:</label>
+        <input class="col-xs-6" type="text" [(ngModel)]="_context.expected.lunch" required><br />
+    </div>
+    <div class="form-group form-group-sm">
+        <label class="col-xs-6">I'll leave at:</label>   
+        <input class="col-xs-6" type="text" [(ngModel)]="_context.expected.leave" required><br />
+    </div>
 
     <h3>Settings</h3>
-    <label>Staff :</label>     <input type="text" [(ngModel)]="_context.staff" required><br />
 
-    <h4>Daily Goals</h4>
-    <label>Sunday :</label>    <input type="text" [(ngModel)]="_context.gSun"><br />
-    <label>Monday :</label>    <input type="text" [(ngModel)]="_context.gMon"><br />
-    <label>Tuesday :</label>   <input type="text" [(ngModel)]="_context.gTue"><br />
-    <label>Wednesday :</label> <input type="text" [(ngModel)]="_context.gWed"><br />
-    <label>Thursday :</label>  <input type="text" [(ngModel)]="_context.gThu"><br />
-    <label>Friday :</label>    <input type="text" [(ngModel)]="_context.gFri"><br />
-    <label>Saturday :</label>  <input type="text" [(ngModel)]="_context.gSat"><br />
+    <div class="form-group form-group-sm">
+        <label class="col-xs-4">Staff :</label>     
+        <input class="col-xs-8" type="text" [(ngModel)]="_context.staff" required><br />
+    </div>
+
+    <h4>Goals</h4>
+
+    <div *ngFor="#goal of _context.goals; #i = index" class="form-group form-group-sm">
+        <label class="col-xs-4">{{ _dayLabels[i] }}:</label>
+        <input class="col-xs-8" type="text" [(ngModel)]="_context.goals[i]" placeholder="h:mm - goal"/>
+    </div>
 </form>
