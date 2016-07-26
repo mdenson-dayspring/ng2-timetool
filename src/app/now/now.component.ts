@@ -29,6 +29,9 @@ export class NowComponent implements OnInit {
         if (context.now) {
             this.hours = context.now.hours.toString();
             this.hoursLessLunch = context.now.hoursLessLunch.toString();
+        } else {
+            this.hours = '0:00';
+            this.hoursLessLunch = '0:00';
         }
     }
 }

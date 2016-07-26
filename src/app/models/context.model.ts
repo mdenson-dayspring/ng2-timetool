@@ -22,6 +22,18 @@ export class Context {
         this.expected = new TodayTimes();
         this.goals = [];
     }
+
+    public updateNow(nowHM) {
+        console.log('Context.updateNow(nowHM) ', nowHM.toString());
+        this.today = new Today(
+            new HM(this.expected.arrive),
+            new HM(this.expected.lunch),
+            new HM(this.expected.leave));
+        this.now = new Today(
+            new HM(this.expected.arrive),
+            new HM(this.expected.lunch),
+            nowHM);
+    }
 }
 
 export class TodayTimes {

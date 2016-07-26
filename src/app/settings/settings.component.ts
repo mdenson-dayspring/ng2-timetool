@@ -30,4 +30,7 @@ export class SettingsComponent implements OnInit {
 
     }
 
+    private save() {
+        this._appState.save(this._context);
+    }
 }

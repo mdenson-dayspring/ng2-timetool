@@ -24,7 +24,7 @@ export class TimelineComponent implements OnInit {
         });
     }
 
-    private _setup( context: Context) {
+    private _setup(context: Context) {
         this.context = context;
 
         let amPerc: number = 0;
@@ -34,34 +34,40 @@ export class TimelineComponent implements OnInit {
         let afterLunch = noon.add(context.today.lunch);
         let noonMinutes = noon.sub(context.today.arrive);
 
-        this.timeWorked = context.now.hoursLessLunch.toString();
-        this.timeTotal = context.now.hours.toString();
-        this.timeLeft = context.today.timeLeft().toString();
+        if (context.now) {
+            this.timeWorked = context.now.hoursLessLunch.toString();
+            this.timeTotal = context.now.hours.toString();
+            this.timeLeft = context.today.timeLeft().toString();
 
-        let totalMin = context.today.hours.minutes;
-        if (context.now.leave.minutes < noon.minutes) {
-            console.log('am');
-            amPerc = Math.round( context.now.hours.minutes / totalMin * 100);
-            this.timeWorked = context.now.hours.toString();
-        } else if (context.now.leave.minutes < afterLunch.minutes) {
-            console.log('lunch');
-            amPerc = Math.round(noonMinutes.minutes / totalMin * 100);
-            let lunch = context.now.hours.sub(noonMinutes).minutes;
-            lunchPerc = Math.round(lunch / totalMin * 100);
-            this.timeWorked = noonMinutes.toString();
+            let totalMin = context.today.hours.minutes;
+            if (context.now.leave.minutes < noon.minutes) {
+                console.log('am');
+                amPerc = Math.round(context.now.hours.minutes / totalMin * 100);
+                this.timeWorked = context.now.hours.toString();
+            } else if (context.now.leave.minutes < afterLunch.minutes) {
+                console.log('lunch');
+                amPerc = Math.round(noonMinutes.minutes / totalMin * 100);
+                let lunch = context.now.hours.sub(noonMinutes).minutes;
+                lunchPerc = Math.round(lunch / totalMin * 100);
+                this.timeWorked = noonMinutes.toString();
+            } else {
+                console.log('pm');
+                amPerc = Math.round(noonMinutes.minutes / totalMin * 100);
+                lunchPerc = Math.round(context.now.lunch.minutes / totalMin * 100);
+                let pm = context.now.hoursLessLunch.sub(noonMinutes).minutes;
+                pmPerc = Math.round(pm / totalMin * 100);
+            }
+            console.log(amPerc, lunchPerc, pmPerc);
+            if (amPerc + lunchPerc + pmPerc > 100) {
+                pmPerc = 100 - (amPerc + lunchPerc);
+            }
+            this.am = '' + amPerc + '%';
+            this.lunch = '' + lunchPerc + '%';
+            this.pm = '' + pmPerc + '%';
         } else {
-            console.log('pm');
-            amPerc = Math.round(noonMinutes.minutes / totalMin * 100);
-            lunchPerc = Math.round(context.now.lunch.minutes / totalMin * 100);
-            let pm = context.now.hoursLessLunch.sub(noonMinutes).minutes;
-            pmPerc = Math.round(pm / totalMin * 100);
+            this.am = '0%';
+            this.lunch = '0%';
+            this.pm = '0%';
         }
-        console.log(amPerc, lunchPerc, pmPerc);
-        if (amPerc + lunchPerc  + pmPerc > 100) {
-            pmPerc = 100 - (amPerc + lunchPerc);
-        }
-        this.am = '' + amPerc + '%';
-        this.lunch = '' + lunchPerc + '%';
-        this.pm = '' + pmPerc + '%';
     }
 }

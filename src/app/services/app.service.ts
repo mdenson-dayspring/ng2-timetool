@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/share';
 
-import { DayOfWeek, Context, HM, Today } from '../models';
+import { DayOfWeek, Context, HM } from '../models';
 
 @Injectable()
 export class AppState {
@@ -94,24 +94,11 @@ export class AppState {
                 let c: Context = this._dataStore.context;
                 return (!c.now || !c.now.leave.equals(value));
             })
-            .do((v: HM) => this.updateNow(v))
+            .do((v: HM) => this._dataStore.context.updateNow(v))
             .map(() => {
                 return this._dataStore.context;
             })
             .share();
-    }
-
-    public updateNow(nowHM) {
-        console.log('updateNow() ', nowHM.toString());
-        let context: Context = this._dataStore.context;
-        context.today = new Today(
-            new HM(context.expected.arrive),
-            new HM(context.expected.lunch),
-            new HM(context.expected.leave));
-        context.now = new Today(
-            new HM(context.expected.arrive),
-            new HM(context.expected.lunch),
-            nowHM);
     }
 
     public save(context: Context) {
@@ -136,5 +123,8 @@ export class AppState {
             ]
         };
         localStorage.setItem('contextData', JSON.stringify(data));
+
+        // clear to force redraw
+        this._dataStore.context.now = undefined;
     }
 }

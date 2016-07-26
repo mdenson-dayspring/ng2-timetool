@@ -2,28 +2,28 @@
     <h3>Today</h3>
     <div class="form-group form-group-sm">
         <label class="col-xs-6">I arrived at :</label>
-        <input class="col-xs-6" type="text" [(ngModel)]="_context.expected.arrive" required><br />
+        <input class="col-xs-6" type="text" (blur)="save()" [(ngModel)]="_context.expected.arrive" required><br />
     </div>
     <div class="form-group form-group-sm">
         <label class="col-xs-6">Lunch will take:</label>
-        <input class="col-xs-6" type="text" [(ngModel)]="_context.expected.lunch" required><br />
+        <input class="col-xs-6" type="text" (blur)="save()" [(ngModel)]="_context.expected.lunch" required><br />
     </div>
     <div class="form-group form-group-sm">
         <label class="col-xs-6">I'll leave at:</label>   
-        <input class="col-xs-6" type="text" [(ngModel)]="_context.expected.leave" required><br />
+        <input class="col-xs-6" type="text" (blur)="save()" [(ngModel)]="_context.expected.leave" required><br />
     </div>
 
     <h3>Settings</h3>
 
     <div class="form-group form-group-sm">
         <label class="col-xs-4">Staff :</label>     
-        <input class="col-xs-8" type="text" [(ngModel)]="_context.staff" required><br />
+        <input class="col-xs-8" type="text" (blur)="save()" [(ngModel)]="_context.staff" required><br />
     </div>
 
     <h4>Goals</h4>
 
     <div *ngFor="#goal of _context.goals; #i = index" class="form-group form-group-sm">
         <label class="col-xs-4">{{ _dayLabels[i] }}:</label>
-        <input class="col-xs-8" type="text" [(ngModel)]="_context.goals[i]" placeholder="h:mm - goal"/>
+        <input class="col-xs-8" type="text" (blur)="save()" [(ngModel)]="_context.goals[i]" placeholder="h:mm - goal"/>
     </div>
 </form>
