@@ -11,7 +11,7 @@ export class SettingsComponent implements OnInit {
     private _context: Context;
     private _dayLabels: string[];
 
-    constructor(private _appState: AppState) { 
+    constructor(private _appState: AppState) {
         this._dayLabels = [];
         this._dayLabels[DayOfWeek.SUN] = 'Sunday';
         this._dayLabels[DayOfWeek.MON] = 'Monday';
