@@ -4,6 +4,9 @@
   "name": "Dayspring Timetool Chrome Extension",
   "description": "This extension is eventually going to get information from the timesheet.",
   "version": "1.0",
+  "icons": {
+    "128": "128.png"
+  },
   "browser_action": {
     "default_icon": "assets/img/icon.png",
     "default_popup": "index.html",

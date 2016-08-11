@@ -25,7 +25,7 @@ function rootNode(args) {
 
 function prependExt(extensions, args) {
   args = args || [];
-  if (!Array.isArray(args)) { args = [args] }
+  if (!Array.isArray(args)) { args = [args]; }
   return extensions.reduce(function(memo, val) {
     return memo.concat(val, args.map(function(prefix) {
       return prefix + val;
@@ -53,7 +53,7 @@ function packageSort(packages) {
     } else {
       return 1;
     }
-  }
+  };
 }
 
 function reverse(arr) {

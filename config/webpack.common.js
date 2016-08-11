@@ -50,7 +50,7 @@ module.exports = {
   entry: {
 
     'polyfills': './src/polyfills.ts',
-    'vendor': './src/vendor.ts',
+  'vendor': './src/vendor.ts',
     'main': './src/main.browser.ts'
 
   },
@@ -77,7 +77,7 @@ module.exports = {
 
     alias: {
       'angular2/core': helpers.root('node_modules/@angular/core/index.js'),
-      'angular2/testing': helpers.root('node_modules/@angular/core/testing.js'),
+      // 'angular2/testing': helpers.root('node_modules/@angular/core/testing.js'),
       '@angular/testing': helpers.root('node_modules/@angular/core/testing.js'),
       'angular2/platform/browser': helpers.root('node_modules/@angular/platform-browser/index.js'),
       'angular2/testing': helpers.root('node_modules/@angular/testing/index.js'),
@@ -232,11 +232,16 @@ module.exports = {
     new CopyWebpackPlugin([
       {
         from: 'src/assets',
-        to: 'assets'
+        to: 'assets',
+        ignore: ['*.pdn', '.gitkeep']
       },
       {
         from: 'src/assets/manifest.json',
         to: 'manifest.json'
+      },
+      {
+        from: 'src/assets/img/128.png',
+        to: '128.png'
       },
     ]),
 
