@@ -55,11 +55,20 @@ export class DayInfo {
     getDiff(estimate = false): string {
         if (this.show) {
             if (!estimate && this._actual) {
-                return this._actual.sub(this._goal).toString('↑', '↓');
+                return this._actual.sub(this._goal).toString('', '');
             }
         }
 
         return undefined;
+    }
+    getDiffSign(estimate = false): number {
+        if (this.show) {
+            if (!estimate && this._actual) {
+                return this._actual.sub(this._goal).sign();
+            }
+        }
+
+        return 0;
     }
 
     toString(estimate = false): string {

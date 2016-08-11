@@ -3,12 +3,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { DayOfWeek, Context, DayInfo, HM } from '../models';
 import { TimesheetService, AppState } from '../services';
 
-import { WeekChartDirective } from '../week/weekchart.component';
+import { WeekTableComponent } from '../week/weektable.component';
 
 @Component({
     template: require('app/week/week.component.html'),
     selector: 'week-summary',
-    directives: [WeekChartDirective]
+    directives: [WeekTableComponent]
 })
 export class WeekComponent implements OnInit {
     todayDoW: number;

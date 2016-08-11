@@ -32,6 +32,10 @@ export class HM {
         return (this.minutes === other.minutes);
     }
 
+    sign(): number {
+        return Math.sign(this._minutes);
+    }
+
     toString(pos = '', neg = '-'): string {
         let sign = Math.sign(this._minutes);
         let hours = this.hours();
