@@ -49,9 +49,6 @@ export function main(initialHmrState?: any): Promise<any> {
  * You can also import them in vendors to ensure that they are bundled in one file
  * Also see custom-typings.d.ts as you also need to do `typings install x` where `x` is your module
  */
-google.load('visualization', '1.0', {
-  'packages': ['corechart']
-});
 
 /*
  * Hot Module Reload
