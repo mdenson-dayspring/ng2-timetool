@@ -1,13 +1,13 @@
-<div *ngIf="context.today">
-  <div class="row" style="margin-bottom: 8px;">
+<div class="timeline" *ngIf="context.today">
+  <div class="row">
     <div class="col-xs-4" style="padding-left: 0px;">
-      <span class="label label-pill label-success">{{ context.today.arrive.toString() }}</span>
+      <p class="text-success">{{ context.today.arrive.toString() }}</p>
     </div>
     <div class="col-xs-4" style="text-align: center;">
-      <span class="label label-pill label-warning">{{ context.today.lunch.toString() }}</span>
+      <p class="text-warning">{{ context.today.lunch.toString() }}</p>
     </div>
     <div class="col-xs-4" style="text-align: right; padding-right: 0px;">
-      <span class="label label-pill label-success">{{ context.today.leave.toString() }}</span>
+      <p class="text-success">{{ context.today.leave.toString() }}</p>
     </div>
   </div>
   <div class="row">

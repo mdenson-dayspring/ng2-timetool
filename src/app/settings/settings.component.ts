@@ -8,29 +8,25 @@ import { DayOfWeek, Context } from '../models';
     selector: 'settings'
 })
 export class SettingsComponent implements OnInit {
-    private _context: Context;
-    private _dayLabels: string[];
+    private context: Context;
+    private dayLabels: string[];
 
     constructor(private _appState: AppState) {
-        this._dayLabels = [];
-        this._dayLabels[DayOfWeek.SUN] = 'Sunday';
-        this._dayLabels[DayOfWeek.MON] = 'Monday';
-        this._dayLabels[DayOfWeek.TUE] = 'Tuesday';
-        this._dayLabels[DayOfWeek.WED] = 'Wednesday';
-        this._dayLabels[DayOfWeek.THU] = 'Thursday';
-        this._dayLabels[DayOfWeek.FRI] = 'Friday';
-        this._dayLabels[DayOfWeek.SAT] = 'Saturday';
+        this.dayLabels = [];
+        this.dayLabels[DayOfWeek.SUN] = 'Sunday';
+        this.dayLabels[DayOfWeek.MON] = 'Monday';
+        this.dayLabels[DayOfWeek.TUE] = 'Tuesday';
+        this.dayLabels[DayOfWeek.WED] = 'Wednesday';
+        this.dayLabels[DayOfWeek.THU] = 'Thursday';
+        this.dayLabels[DayOfWeek.FRI] = 'Friday';
+        this.dayLabels[DayOfWeek.SAT] = 'Saturday';
     }
 
     ngOnInit() {
-        this._context = this._appState.getContext();
-        this._appState.context$.subscribe(updated => {
-            this._context = updated;
-        });
-
+        this.context = this._appState.getContext();
     }
 
     private save() {
-        this._appState.save(this._context);
+        this._appState.save(this.context);
     }
 }

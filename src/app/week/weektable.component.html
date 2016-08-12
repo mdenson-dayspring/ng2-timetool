@@ -4,5 +4,5 @@
         <th class="hours">Hours</th>
         <th class="diff">Diff</th>
     </tr>
-    <tr *ngFor="#line of _content" [weektable-row]='line' [ngClass]="{success: line.today, active: line.totals}"></tr>
+    <tr *ngFor="let line of _content" [weektable-row]='line' [ngClass]="{success: line.today, active: line.totals}"></tr>
 </table>

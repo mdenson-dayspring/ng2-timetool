@@ -5,6 +5,7 @@ import { AppState } from '../services';
 
 @Component({
     template: require('./timeline.component.html'),
+    styles: [require('./timeline.component.css')],
     selector: 'timeline'
 })
 export class TimelineComponent implements OnInit {
