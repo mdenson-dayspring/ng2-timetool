@@ -33,6 +33,7 @@ export class App implements OnInit {
 
     ngOnInit() {
         this._appState.loadContext();
+        this.time = this._appState.getContext().now.leave.toString();
         this._appState.context$.subscribe(updated => {
             this.time = updated.now.leave.toString();
         });

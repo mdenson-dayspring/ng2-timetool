@@ -83,6 +83,7 @@ export class AppState {
             this.save(context);
 
         }
+        this._dataStore.context.updateNow(HM.Now());
 
         // Create Observable Stream to output our data
         this.context$ = Observable
