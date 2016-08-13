@@ -46,7 +46,7 @@ export class SettingsComponent {
             // })
             // .filter((value) => this.settingsForm.valid)
             .subscribe((value) => {
-                console.log("Model Driven Form valid value: vm = ", JSON.stringify(value));
+                console.log('Model Driven Form valid value: vm = ', JSON.stringify(value));
             });
     }
 
