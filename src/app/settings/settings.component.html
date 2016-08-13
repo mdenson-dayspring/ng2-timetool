@@ -41,10 +41,9 @@
     <h4>Goals</h4>
 
     <div *ngFor="let goal of context.goals; let i = index" class="form-group form-group-sm">
-        <label class="col-xs-4" for="idGoal">{{ dayLabels[i] }}:</label>     
+        <label class="col-xs-4">{{ dayLabels[i] }}:</label>     
         <input class="col-xs-8" 
                type="text" 
-               id="idGoal{{ i }}" 
                [formControl]="settingsForm.controls[dayLabels[i]]"
                placeholder="h:mm"><br />
     </div>
