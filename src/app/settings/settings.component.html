@@ -1,29 +1,51 @@
-<form class="form-horizontal">
+<form #f="ngForm"  
+      [formGroup]="settingsForm"  
+      class="form-horizontal">
     <h3>Today</h3>
     <div class="form-group form-group-sm">
-        <label class="col-xs-6">I arrived at :</label>
-        <input class="col-xs-6" type="text" (blur)="save()" [(ngModel)]="context.expected.arrive" required><br />
+        <label class="col-xs-6" for="idArrive">I arrived at :</label>
+        <input class="col-xs-6" 
+               type="text"
+               id="idArrive" 
+               [formControl]="settingsForm.controls['arrive']"
+               required><br />
     </div>
     <div class="form-group form-group-sm">
-        <label class="col-xs-6">Lunch will take:</label>
-        <input class="col-xs-6" type="text" (blur)="save()" [(ngModel)]="context.expected.lunch" required><br />
+        <label class="col-xs-6" for="idLunch">Lunch will take:</label>
+        <input class="col-xs-6" 
+               type="text" 
+               id="idLunch" 
+               [formControl]="settingsForm.controls['lunch']"
+               required><br />
     </div>
     <div class="form-group form-group-sm">
-        <label class="col-xs-6">I'll leave at:</label>   
-        <input class="col-xs-6" type="text" (blur)="save()" [(ngModel)]="context.expected.leave" required><br />
+        <label class="col-xs-6" for="idLeave">I'll leave at:</label>   
+        <input class="col-xs-6" 
+               type="text" 
+               id="idLeave" 
+               [formControl]="settingsForm.controls['leave']"
+               required><br />
     </div>
 
     <h3>Settings</h3>
 
     <div class="form-group form-group-sm">
-        <label class="col-xs-4">Staff :</label>     
-        <input class="col-xs-8" type="text" (blur)="save()" [(ngModel)]="context.staff" required><br />
+        <label class="col-xs-4" for="idStaff">Staff :</label>     
+        <input class="col-xs-8" 
+               type="text" 
+               id="idStaff" 
+               [formControl]="settingsForm.controls['staff']"
+               required><br />
     </div>
 
     <h4>Goals</h4>
 
     <div *ngFor="let goal of context.goals; let i = index" class="form-group form-group-sm">
-        <label class="col-xs-4">{{ dayLabels[i] }}:</label>
-        <input class="col-xs-8" type="text" (blur)="save()" [(ngModel)]="context.goals[i]" placeholder="h:mm"/>
+        <label class="col-xs-4" for="idGoal">{{ dayLabels[i] }}:</label>     
+        <input class="col-xs-8" 
+               type="text" 
+               id="idGoal{{ i }}" 
+               [formControl]="settingsForm.controls[dayLabels[i]]"
+               placeholder="h:mm"><br />
     </div>
 </form>
